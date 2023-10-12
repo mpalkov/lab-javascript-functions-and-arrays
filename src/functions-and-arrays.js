@@ -168,7 +168,7 @@ function howManyTimes(arrayToSearchIn, wordToSearch) {
 
 
 // Iteration #8: Bonus
-const matrix = [
+const mtrx = [
   [8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8],
   [49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 4, 56, 62, 0],
   [81, 49, 31, 73, 55, 79, 14, 29, 93, 71, 40, 67, 53, 88, 30, 3, 49, 13, 36, 65],
@@ -191,7 +191,54 @@ const matrix = [
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ];
 
-function greatestProduct() {}
+function greatestProduct(matrix) {
+  let theGreatestProd = 0;
+
+  for(let y = 0; y < matrix.length; y++) {
+    for(let x = 0; x < matrix[y].length; x++) {
+      let biggestCombinationForXY = greaatestCombinationOfX(matrix, x, y);
+      if ( biggestCombinationForXY > theGreatestProd)
+          theGreatestProd = biggestCombinationForXY;  
+      }
+  }
+  return (theGreatestProd);
+}
+
+//x == xCoordinate, y == yCoordinate
+function greaatestCombinationOfX(matrix, x, y) {
+  const steps = 4;
+  let   greatest4x4 = 0;
+  const xDimension = matrix[0].length;
+  const yDimension = matrix.length;
+  
+  // multiply 4 to the right - X axis
+  let resultRight, resultLeft, resultUp, resultDown;
+  resultRight = resultLeft = resultUp = resultDown = matrix[y][x];
+  
+  for (i = 1; i < steps; i++){
+    if (x + steps <= xDimension) {
+      resultRight *= matrix[y][x + i];
+    }
+    if (x + 1 - steps >= 0){
+      resultLeft *= matrix[y][x - i];
+    }
+    if (y + steps <= yDimension){
+      resultDown *= matrix[y + i][x];
+    }
+    if (y + 1 - steps >= 0){
+      resultUp *= matrix[y - i][x];
+    }
+  }
+  if (resultRight > greatest4x4)
+      greatest4x4 = resultRight;
+  if (resultLeft > greatest4x4)
+      greatest4x4 = resultLeft;
+  if (resultUp > greatest4x4)
+      greatest4x4 = resultUp;
+  if (resultDown > greatest4x4)
+      greatest4x4 = resultDown;
+  return (greatest4x4);
+}
 
 
 
