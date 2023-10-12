@@ -196,7 +196,7 @@ function greatestProduct(matrix) {
 
   for(let y = 0; y < matrix.length; y++) {
     for(let x = 0; x < matrix[y].length; x++) {
-      let biggestCombinationForXY = greaatestCombinationOfX(matrix, x, y);
+      let biggestCombinationForXY = getGreaatestCombination2axes(matrix, x, y);
       if ( biggestCombinationForXY > theGreatestProd)
           theGreatestProd = biggestCombinationForXY;  
       }
@@ -205,38 +205,27 @@ function greatestProduct(matrix) {
 }
 
 //x == xCoordinate, y == yCoordinate
-function greaatestCombinationOfX(matrix, x, y) {
+function getGreaatestCombination2axes(matrix, x, y) {
   const steps = 4;
   let   greatest4x4 = 0;
   const xDimension = matrix[0].length;
   const yDimension = matrix.length;
   
-  // multiply 4 to the right - X axis
-  let resultRight, resultLeft, resultUp, resultDown;
-  resultRight = resultLeft = resultUp = resultDown = matrix[y][x];
+  let horizontalResult, verticalResult;
+  horizontalResult = verticalResult = matrix[y][x];
   
   for (i = 1; i < steps; i++){
     if (x + steps <= xDimension) {
-      resultRight *= matrix[y][x + i];
-    }
-    if (x + 1 - steps >= 0){
-      resultLeft *= matrix[y][x - i];
+      horizontalResult *= matrix[y][x + i];
     }
     if (y + steps <= yDimension){
-      resultDown *= matrix[y + i][x];
-    }
-    if (y + 1 - steps >= 0){
-      resultUp *= matrix[y - i][x];
+      verticalResult *= matrix[y + i][x];
     }
   }
-  if (resultRight > greatest4x4)
-      greatest4x4 = resultRight;
-  if (resultLeft > greatest4x4)
-      greatest4x4 = resultLeft;
-  if (resultUp > greatest4x4)
-      greatest4x4 = resultUp;
-  if (resultDown > greatest4x4)
-      greatest4x4 = resultDown;
+  if (horizontalResult > greatest4x4)
+      greatest4x4 = horizontalResult;
+  if (verticalResult > greatest4x4)
+      greatest4x4 = verticalResult;
   return (greatest4x4);
 }
 
