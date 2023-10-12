@@ -155,7 +155,14 @@ const wordsCount = [
 ];
 
 function howManyTimes(arrayToSearchIn, wordToSearch) {
-  
+  if (arrayToSearchIn.length === 0)
+    return (0);
+  let timesFound = 0;
+  arrayToSearchIn.forEach(element => {
+    if (element === wordToSearch)
+      timesFound++;
+  });
+  return (timesFound);
 }
 
 
